@@ -1,0 +1,44 @@
+@import '../../variables';
+
+.header {
+  background-color: $color-main;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+
+  &__home {
+    display: inherit;
+    align-items: center;
+    text-decoration: none;
+
+    font-family: $font-family;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 28px;
+    color: black;
+  }
+
+  &__button {
+    width: 105px;
+    height: 50px;
+    background-color: $color-main;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+    font-family: $font-family;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 28px;
+
+    &:first-child {
+      margin-right: 15px;
+    }
+  }
+}
+
+.button-active {
+  border: 2px solid $color-decorative;
+  color: $color-decorative;
+}
