@@ -13,6 +13,10 @@ html {
   }
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
   min-height: 100%;
 }
@@ -20,4 +24,8 @@ body {
 .blogs-app {
   min-height: 100%;
   min-width: 100%;
+}
+
+.ant-pagination .ant-pagination-options {
+  display: none;
 }

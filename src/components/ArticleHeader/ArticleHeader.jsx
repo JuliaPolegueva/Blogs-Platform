@@ -1,33 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Checkbox } from '@mui/material';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
+import format from 'date-fns/format';
+
+import { uniqueKey } from '../../utils/uniqueKey';
+import avatar from '../../assets/images/Avatar.svg';
 
 import classes from './ArticleHeader.module.scss';
-import ava from './Rectangle.svg';
 
-const ArticleHeader = () => {
+const ArticleHeader = ({ slug, title, description, tagList, createdAt, favorited, favoritesCount, author }) => {
+  const [checkFavorite /*, setCheckFavorite*/] = useState(favorited);
+  const [favoriteCount /*, setFavoriteCount*/] = useState(favoritesCount);
+
+  const articlesCount = useSelector(state => state.article.articlesCount);
+
   return (
     <>
       <div>
         <div className={classes.title}>
-          <h2 className={classes.title__text}>Some article title</h2>
-          <span className={classes.title__like}>12</span>
+          {articlesCount ? (
+            <Link to={`${slug}`} className={classes.title__text}>
+              {title}
+            </Link>
+          ) : (
+            <h2 className={classes.title__text}>{title}</h2>
+          )}
+          <label>
+            <Checkbox
+              icon={<FavoriteBorder sx={{ padding: '2px' }} />}
+              checkedIcon={<Favorite sx={{ color: 'red', padding: '2px' }} />}
+              disabled
+              //disabled={!userLoggedIn}
+              checked={checkFavorite}
+              //onClick={(event) => handleCheckboxClick(event)}
+            />
+            <span className={classes.title__like}>{favoriteCount}</span>
+          </label>
         </div>
+
         <div className={classes.tags}>
-          <span className={classes.tags__tag}>Tag</span>
-          <span className={classes.tags__tag}>SomeTag</span>
+          {tagList.map(tag => (
+            <span key={uniqueKey()} className={classes.tags__tag}>
+              {tag}
+            </span>
+          ))}
         </div>
-        <p className={classes.text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
-        </p>
+        <p className={classes.text}>{description}</p>
       </div>
       <div>
         <div className={classes.user}>
           <div className={classes.user__text}>
-            <p className={classes.user__name}>John Doe</p>
-            <p className={classes.user__date}>March 5, 2020 </p>
+            <p className={classes.user__name}>{author.username}</p>
+            <p className={classes.user__date}>{format(new Date(createdAt), 'MMMM d, Y')}</p>
           </div>
-          <img className={classes.user__img} src={ava} alt="Аватарка"></img>
+          <img className={classes.user__img} src={author.image || avatar} alt="Аватарка"></img>
         </div>
       </div>
     </>
