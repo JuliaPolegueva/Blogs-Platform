@@ -51,6 +51,8 @@
 
 .user {
   display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
 
   &__text {
     display: flex;
@@ -62,7 +64,7 @@
     font-family: $font-family;
     font-weight: 500;
     font-size: 18px;
-    line-height: 25px;
+    line-height: 28px;
     color: $color-text;
   }
 
@@ -78,4 +80,48 @@
     width: 46px;
     border-radius: 50%;
   }
+}
+
+.button {
+  width: 130px;
+  background-color: $color-main;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 5px 16px;
+  margin-right: 15px;
+
+  font-family: $font-family;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    border: 2px solid $color-border;
+    background-color: $color-secondary;
+    box-shadow: $shadow;
+  }
+
+  &:focus {
+    box-shadow: $shadow;
+  }
+
+  &:active {
+    background-color: $color-decorative;
+    color: $color-main;
+  }
+}
+
+.delete {
+  border-color: red;
+  color: red;
+}
+
+.edit {
+  border-color: $color-decorative;
+  color: $color-decorative;
 }

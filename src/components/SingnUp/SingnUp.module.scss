@@ -1,0 +1,163 @@
+@import '../../variables';
+
+.wrapper {
+  min-height: 600px;
+  width: 385px;
+  background-color: $color-main;
+  box-shadow: $shadow;
+  border-radius: 4px;
+  padding: 40px 30px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  font-family: $font-family;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & :nth-child(4)::after {
+    content: '';
+    width: 325px;
+    height: 0.5px;
+    background-color: $color-border;
+    margin-top: 20px;
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+
+    font-family: $font-family;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  &__input {
+    border: 1px solid $color-border;
+    border-radius: 3px;
+    padding: 7px;
+
+    font-family: $font-family;
+    font-size: 16px;
+    line-height: 24px;
+
+    &::placeholder {
+      color: $color-border;
+    }
+
+    &:hover {
+      border: 1px solid $color-text--muted;
+      box-shadow: $shadow;
+    }
+
+    &:focus {
+      background-color: rgba(221, 245, 250, 0.9);
+    }
+  }
+
+  &__error {
+    font-family: $font-family;
+    font-size: 14px;
+    line-height: 22px;
+    color: $color-text--decorative;
+  }
+
+  &__checkbox {
+    margin-bottom: 10px;
+  }
+}
+
+.checkbox {
+  display: flex;
+  margin-bottom: 20px;
+
+  &__input {
+    min-width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    margin-top: 3px;
+  }
+
+  &__text {
+    font-family: $font-family;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: rgba(89, 89, 89, 1);
+  }
+}
+
+.btn {
+  width: 325px;
+  height: 40px;
+  background-color: $color-text--decorative;
+  border: 1px solid $color-text--decorative;
+  border-radius: 3px;
+  margin-bottom: 10px;
+
+  font-family: $font-family;
+  font-size: 16px;
+  line-height: 24px;
+  color: white;
+
+  &:disabled {
+    border: 2px solid $color-border;
+    background-color: $color-text--muted;
+    color: rgba(151, 162, 163, 0.9);
+  }
+
+  &:hover {
+    border: 2px solid $color-border;
+    box-shadow: $shadow;
+  }
+
+  &:focus {
+    box-shadow: $shadow;
+  }
+
+  &:not(:disabled):active {
+    background-color: $color-border;
+    color: $color-text--decorative;
+  }
+}
+
+.notice {
+  display: block;
+  text-align: center;
+  font-family: $font-family;
+  font-size: 12px;
+  line-height: 20px;
+  color: $color-text--muted;
+
+  &__link {
+    color: $color-text--decorative;
+
+    &:visited {
+      color: $color-text--decorative;
+    }
+
+    &:hover {
+      color: $color-text;
+    }
+
+    &:focus {
+      border: none;
+      color: $color-decorative;
+    }
+
+    &:active {
+      color: $color-text--muted;
+    }
+  }
+}

@@ -1,21 +1,65 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { logOut } from '../../store/users/users.slice';
+import avatar from '../../assets/images/Avatar.svg';
+import getCookie from '../../utils/getCookie';
+import { fetchGetCurrentUser } from '../../store/users/users.actions';
 
 import classes from './Header.module.scss';
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const userName = useSelector(state => state.users.username);
+  const userAvatar = useSelector(state => state.users.image);
+  const isLogin = useSelector(state => state.users.email);
+  //const isLoading = useSelector(state => state.article.isLoading);
+
+  const token = getCookie('token');
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchGetCurrentUser());
+    }
+  }, [dispatch]);
+
+  const handleLogOutClick = () => {
+    dispatch(logOut());
+  };
+
   return (
     <div className={classes.header}>
-      <a href="" className={classes.header__home}>
+      <Link to="articles" className={classes.header__home}>
         Realworld Blog
-      </a>
-      <div>
-        <button className={classes.header__button} type="button">
-          Sign In
-        </button>
-        <button className={`${classes.header__button} ${classes['button-active']}`} type="button">
-          Sign Up
-        </button>
-      </div>
+      </Link>
+
+      {!token && (
+        <div className={classes.wrapper}>
+          <Link to="sign-in" className={classes.header__button}>
+            Sign In
+          </Link>
+          <Link to="sign-up" className={`${classes.header__button} ${classes['button-active']}`}>
+            Sign Up
+          </Link>
+        </div>
+      )}
+
+      {token && isLogin && (
+        <div className={classes.wrapper}>
+          <Link to="new-article" className={`${classes.header__button} ${classes['button-active']} ${classes.create}`}>
+            Create article
+          </Link>
+          <Link to="profile" className={`${classes.header__button} ${classes.user}`}>
+            <span className={classes.user__name}>{userName}</span>
+            <img className={classes.user__img} src={userAvatar || avatar} alt="Аватарка"></img>
+          </Link>
+          <Link to="sign-in" className={`${classes.header__button} ${classes['log-out']}`} onClick={handleLogOutClick}>
+            Log Out
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

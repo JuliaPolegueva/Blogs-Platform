@@ -1,26 +1,61 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Checkbox } from '@mui/material';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import format from 'date-fns/format';
 
 import { uniqueKey } from '../../utils/uniqueKey';
+import {
+  fetchDeleteArticle,
+  fetchDeleteFavoriteArticle,
+  fetchSetFavoriteArticle,
+} from '../../store/article/article.actions';
+import ModalWindow from '../ModalWindow';
 import avatar from '../../assets/images/Avatar.svg';
 
 import classes from './ArticleHeader.module.scss';
 
 const ArticleHeader = ({ slug, title, description, tagList, createdAt, favorited, favoritesCount, author }) => {
-  const [checkFavorite /*, setCheckFavorite*/] = useState(favorited);
-  const [favoriteCount /*, setFavoriteCount*/] = useState(favoritesCount);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const articlesCount = useSelector(state => state.article.articlesCount);
+  const [checkFavorite, setFavorite] = useState(favorited);
+  const [favoriteCount, setFavoriteCount] = useState(favoritesCount);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const articleAuthor = useSelector(state => author.username);
+  const username = useSelector(state => state.users.username);
+  const article = useSelector(state => state.article.article);
+  const isLogin = useSelector(state => state.users.isLogin);
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const deleteArticle = () => {
+    dispatch(fetchDeleteArticle(slug));
+    setModalIsOpen(false);
+    navigate('/articles', { replace: true });
+  };
+
+  const checkboxClick = event => {
+    if (event.target.checked) {
+      setFavorite(true);
+      setFavoriteCount(favoriteCount => ++favoriteCount);
+      dispatch(fetchSetFavoriteArticle(slug));
+    } else {
+      setFavorite(false);
+      setFavoriteCount(favoriteCount => --favoriteCount);
+      dispatch(fetchDeleteFavoriteArticle(slug));
+    }
+  };
 
   return (
     <>
       <div>
         <div className={classes.title}>
-          {articlesCount ? (
+          {!article ? (
             <Link to={`${slug}`} className={classes.title__text}>
               {title}
             </Link>
@@ -31,10 +66,9 @@ const ArticleHeader = ({ slug, title, description, tagList, createdAt, favorited
             <Checkbox
               icon={<FavoriteBorder sx={{ padding: '2px' }} />}
               checkedIcon={<Favorite sx={{ color: 'red', padding: '2px' }} />}
-              disabled
-              //disabled={!userLoggedIn}
+              disabled={!isLogin}
               checked={checkFavorite}
-              //onClick={(event) => handleCheckboxClick(event)}
+              onClick={event => checkboxClick(event)}
             />
             <span className={classes.title__like}>{favoriteCount}</span>
           </label>
@@ -57,7 +91,22 @@ const ArticleHeader = ({ slug, title, description, tagList, createdAt, favorited
           </div>
           <img className={classes.user__img} src={author.image || avatar} alt="Аватарка"></img>
         </div>
+        {article && isLogin && articleAuthor === username && (
+          <div>
+            <button
+              to="new-article"
+              className={`${classes.button} ${classes.delete}`}
+              onClick={() => setModalIsOpen(true)}
+            >
+              Delete
+            </button>
+            <Link to="edit" className={`${classes.button} ${classes.edit}`}>
+              Edit
+            </Link>
+          </div>
+        )}
       </div>
+      <ModalWindow modalIsOpen={modalIsOpen} closeModal={closeModal} deleteArticle={deleteArticle} />
     </>
   );
 };
