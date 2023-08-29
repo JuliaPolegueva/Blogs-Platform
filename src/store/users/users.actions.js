@@ -57,8 +57,6 @@ export const fetchLoginUser = createAsyncThunk(
 
       const result = await response.json();
 
-      console.log('fetchLoginUser', result);
-
       if (response.status === 422) {
         if (result?.errors['email or password'])
           throw new Error(`email or password ${result.errors['email or password']}`);
@@ -83,8 +81,6 @@ export const fetchGetCurrentUser = createAsyncThunk('articles/fetchGetCurrentUse
     }
 
     const result = await response.json();
-
-    console.log('fetchGetCurrentUser', result);
 
     return result;
   } catch (error) {
@@ -114,8 +110,6 @@ export const fetchUpdateCurrentUser = createAsyncThunk(
       }
 
       const result = await response.json();
-
-      console.log('fetchUpdateCurrentUser', result);
 
       if (response.status === 422) {
         if (result?.errors?.email) throw new Error(`email ${result.errors.email}`);

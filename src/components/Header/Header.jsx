@@ -15,7 +15,6 @@ const Header = () => {
   const userName = useSelector(state => state.users.username);
   const userAvatar = useSelector(state => state.users.image);
   const isLogin = useSelector(state => state.users.email);
-  //const isLoading = useSelector(state => state.article.isLoading);
 
   const token = getCookie('token');
 

@@ -57,8 +57,6 @@ export const fetchCreateArticle = createAsyncThunk(
 
       const result = await response.json();
 
-      console.log('fetchCreateArticle', result);
-
       return result;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -104,8 +102,6 @@ export const fetchEditArticle = createAsyncThunk(
 
       const result = await response.json();
 
-      console.log('fetchEditArticle', result);
-
       return result;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -127,8 +123,6 @@ export const fetchSetFavoriteArticle = createAsyncThunk(
       }
 
       const result = await response.json();
-
-      console.log('fetchSetFavoriteArticle', result);
 
       return result;
     } catch (error) {
