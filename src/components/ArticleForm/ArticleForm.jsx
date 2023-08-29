@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
 import { uniqueKey } from '../../utils/uniqueKey';
@@ -145,3 +146,12 @@ const ArticleForm = ({ article, handlerFormSubmit }) => {
 };
 
 export default ArticleForm;
+
+ArticleForm.defaultProps = {
+  article: {},
+};
+
+ArticleForm.propTypes = {
+  article: PropTypes.object,
+  handlerFormSubmit: PropTypes.func.isRequired,
+};
