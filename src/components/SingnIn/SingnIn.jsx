@@ -13,8 +13,7 @@ const SingnIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const userError = useSelector(state => state.users.userError);
-  const isLogin = useSelector(state => state.users.isLogin);
+  const { userError, isLogin } = useSelector(state => state.users);
 
   const fromPage = location.state?.from || '/';
 
@@ -54,7 +53,7 @@ const SingnIn = () => {
                   message: 'Введите корректный почтовый адрес. Пример: katamentor@mail.ru',
                 },
               })}
-            ></input>
+            />
             <span className={classes.form__error}>{errors?.email && <p>{errors?.email?.message}</p>}</span>
           </label>
           <label className={classes.form__label}>
@@ -70,7 +69,7 @@ const SingnIn = () => {
                   message: 'Вы можете использовать только английские буквы и цифры',
                 },
               })}
-            ></input>
+            />
             <span className={classes.form__error}>{errors?.password && <p>{errors?.password?.message}</p>}</span>
           </label>
           <button className={classes.btn} type="submit" disabled={!isValid}>

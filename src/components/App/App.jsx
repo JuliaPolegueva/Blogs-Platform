@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import Layout from '../Layout';
+import Layout from '../../layout/Layout';
 import ArticlesList from '../ArticlesList';
 import Article from '../Article';
 import SingnIn from '../SingnIn';
@@ -10,7 +10,7 @@ import EditProfile from '../EditProfile';
 import CreateArticle from '../CreateArticle';
 import EditArticle from '../EditArticle';
 import NotFound from '../NotFound';
-import PrivateRoute from '../hoc/PrivateRoute';
+import PrivateRoute from '../../hoc/PrivateRoute';
 
 import './App.scss';
 

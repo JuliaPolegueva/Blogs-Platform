@@ -11,9 +11,10 @@ import classes from './ErrorMessage.module.scss';
 const ErrorMessage = () => {
   const dispatch = useDispatch();
 
+  const [open, setOpen] = useState(true);
+
   const errMessage = useSelector(state => state.article.errMesage);
   const userMassage = useSelector(state => state.users.errMesage);
-  const [open, setOpen] = useState(true);
 
   const handleClose = () => {
     setOpen(false);

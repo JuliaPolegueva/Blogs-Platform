@@ -14,9 +14,7 @@ const Article = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
 
-  const article = useSelector(state => state.article.article);
-  const isLoading = useSelector(state => state.article.isLoading);
-  const isError = useSelector(state => state.article.isError);
+  const { article, isLoading, isError } = useSelector(state => state.article);
 
   useEffect(() => {
     dispatch(fetchGetArticle(slug));

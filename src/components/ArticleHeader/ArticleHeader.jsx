@@ -24,10 +24,8 @@ const ArticleHeader = ({ slug, title, description, tagList, createdAt, favorited
   const [favoriteCount, setFavoriteCount] = useState(favoritesCount);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const articleAuthor = useSelector(state => author.username);
-  const username = useSelector(state => state.users.username);
   const article = useSelector(state => state.article.article);
-  const isLogin = useSelector(state => state.users.isLogin);
+  const { username, isLogin } = useSelector(state => state.users);
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -91,7 +89,7 @@ const ArticleHeader = ({ slug, title, description, tagList, createdAt, favorited
           </div>
           <img className={classes.user__img} src={author.image || avatar} alt="Аватарка"></img>
         </div>
-        {article && isLogin && articleAuthor === username && (
+        {article && isLogin && author.username === username && (
           <div>
             <button
               to="new-article"

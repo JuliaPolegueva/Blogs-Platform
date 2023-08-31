@@ -64,7 +64,7 @@ const ArticleForm = ({ article, handlerFormSubmit }) => {
                   message: 'Вы можете использовать только английские буквы, цифры и символы.',
                 },
               })}
-            ></input>
+            />
             <span className={classes.form__error}>{errors?.title && <p>{errors?.title?.message}</p>}</span>
           </label>
           <label className={classes.form__label}>
@@ -80,7 +80,7 @@ const ArticleForm = ({ article, handlerFormSubmit }) => {
                   message: 'Вы можете использовать только английские буквы и цифры без пробелов и других символов.',
                 },
               })}
-            ></input>
+            />
             <span className={classes.form__error}>{errors?.description && <p>{errors?.description?.message}</p>}</span>
           </label>
           <label className={classes.form__label}>
@@ -106,7 +106,7 @@ const ArticleForm = ({ article, handlerFormSubmit }) => {
                   type="text"
                   value={tagName}
                   readOnly
-                ></input>
+                />
                 <button className={`${classes['button-tag']} ${classes.delete}`} onClick={() => deleteTag(tagName)}>
                   Delete
                 </button>
@@ -128,7 +128,7 @@ const ArticleForm = ({ article, handlerFormSubmit }) => {
                   },
                 })}
                 onChange={event => changeTagValue(event)}
-              ></input>
+              />
               <button type="button" className={`${classes['button-tag']} ${classes.add}`} onClick={addTag}>
                 Add tag
               </button>

@@ -12,9 +12,7 @@ import classes from './Header.module.scss';
 const Header = () => {
   const dispatch = useDispatch();
 
-  const userName = useSelector(state => state.users.username);
-  const userAvatar = useSelector(state => state.users.image);
-  const isLogin = useSelector(state => state.users.email);
+  const { userName, userAvatar, isLogin } = useSelector(state => state.users);
 
   const token = getCookie('token');
 

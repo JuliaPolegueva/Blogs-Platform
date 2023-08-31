@@ -11,8 +11,7 @@ const CreateArticle = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const isError = useSelector(state => state.article.isError);
-  const isLogin = useSelector(state => state.article.isLogin);
+  const { isError, isLoading } = useSelector(state => state.article);
 
   const handlerFormSubmit = ({ title, description, textarea: body }, tagList) => {
     dispatch(fetchCreateArticle({ title, description, body, tagList }));
@@ -22,8 +21,8 @@ const CreateArticle = () => {
   return (
     <>
       {isError && <ErrorMessage />}
-      {isLogin && <Spinner />}
-      {!(isError || isLogin) && <ArticleForm handlerFormSubmit={handlerFormSubmit} />}
+      {isLoading && <Spinner />}
+      {!(isError || isLoading) && <ArticleForm handlerFormSubmit={handlerFormSubmit} />}
     </>
   );
 };

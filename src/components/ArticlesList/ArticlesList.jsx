@@ -18,19 +18,14 @@ const ArticlesList = () => {
 
   const dispatch = useDispatch();
 
-  const articlesArr = useSelector(state => state.article.articles);
-  const articlesCount = useSelector(state => state.article.articlesCount);
-  const isCreateArticle = useSelector(state => state.article.isCreateArticle);
-
-  const isLoading = useSelector(state => state.article.isLoading);
-  const isError = useSelector(state => state.article.isError);
+  const { articles, articlesCount, isCreateArticle, isLoading, isError } = useSelector(state => state.article);
 
   useEffect(() => {
     dispatch(fetchArticles(offset));
   }, [dispatch, offset, isCreateArticle]);
 
-  const renderArticles = articlesArr => {
-    return articlesArr.map((article, index) => {
+  const renderArticles = articles => {
+    return articles.map((article, index) => {
       return (
         <div key={index} className={classes.article}>
           <ArticleHeader {...article} />
@@ -41,11 +36,11 @@ const ArticlesList = () => {
 
   return (
     <div className={classes.list}>
-      {articlesArr && !(isError || isLoading) && renderArticles(articlesArr)}
+      {articles && !(isError || isLoading) && renderArticles(articles)}
       {isLoading && <Spinner />}
       {isError && <ErrorMessage />}
 
-      {articlesArr && !(isError || isLoading) && (
+      {articles && !(isError || isLoading) && (
         <Pagination
           shape="rounded"
           count={Math.ceil(articlesCount / 5)}

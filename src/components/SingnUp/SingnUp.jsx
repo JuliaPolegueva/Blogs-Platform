@@ -13,8 +13,7 @@ const SingnUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const userError = useSelector(state => state.users.userError);
-  const isLogin = useSelector(state => state.users.isLogin);
+  const { userError, isLogin } = useSelector(state => state.users);
 
   const fromPage = location.state?.from || '/';
 
@@ -63,7 +62,7 @@ const SingnUp = () => {
                   message: 'Вы можете использовать только строчные английские буквы и цифры',
                 },
               })}
-            ></input>
+            />
             <span className={classes.form__error}>{errors?.userName && <p>{errors?.userName?.message}</p>}</span>
           </label>
           <label className={classes.form__label}>
@@ -79,7 +78,7 @@ const SingnUp = () => {
                   message: 'Введите корректный почтовый адрес. Пример: katamentor@mail.ru',
                 },
               })}
-            ></input>
+            />
             <span className={classes.form__error}>{errors?.email && <p>{errors?.email?.message}</p>}</span>
           </label>
           <label className={classes.form__label}>
@@ -103,7 +102,7 @@ const SingnUp = () => {
                   message: 'Вы можете использовать только английские буквы и цифры',
                 },
               })}
-            ></input>
+            />
             <span className={classes.form__error}>{errors?.password && <p>{errors?.password?.message}</p>}</span>
           </label>
           <label className={classes.form__label}>
@@ -116,7 +115,7 @@ const SingnUp = () => {
                 required: 'Поле "Repeat Password" должно быть заполнено',
                 validate: value => value === getValues('password') || 'Пароли должны совпадать',
               })}
-            ></input>
+            />
             <span className={classes.form__error}>
               {errors?.repeatPassword && <p>{errors?.repeatPassword?.message}</p>}
             </span>
@@ -128,7 +127,7 @@ const SingnUp = () => {
               {...register('personalInfo', {
                 required: 'Дайте согласие на обработку данных',
               })}
-            ></input>
+            />
             <span className={classes.checkbox__text}>I agree to the processing of my personal information</span>
           </label>
           <span className={`${classes.form__error} ${classes.form__checkbox}`}>

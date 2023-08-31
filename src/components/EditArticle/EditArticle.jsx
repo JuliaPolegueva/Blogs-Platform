@@ -13,9 +13,7 @@ const EditArticle = () => {
   const location = useLocation();
   const { slug } = useParams();
 
-  const article = useSelector(state => state.article.article);
-  const isError = useSelector(state => state.article.isError);
-  const isLogin = useSelector(state => state.article.isLogin);
+  const { article, isError, isLoading } = useSelector(state => state.article);
 
   const fromPage = location.state?.from || '/';
 
@@ -27,8 +25,8 @@ const EditArticle = () => {
   return (
     <>
       {isError && <ErrorMessage />}
-      {isLogin && <Spinner />}
-      {!(isError || isLogin) && <ArticleForm article={article} handlerFormSubmit={handlerFormSubmit} />}
+      {isLoading && <Spinner />}
+      {!(isError || isLoading) && <ArticleForm article={article} handlerFormSubmit={handlerFormSubmit} />}
     </>
   );
 };
