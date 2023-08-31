@@ -12,7 +12,7 @@ import classes from './Header.module.scss';
 const Header = () => {
   const dispatch = useDispatch();
 
-  const { userName, userAvatar, isLogin } = useSelector(state => state.users);
+  const { username, image, isLogin } = useSelector(state => state.users);
 
   const token = getCookie('token');
 
@@ -49,8 +49,8 @@ const Header = () => {
             Create article
           </Link>
           <Link to="profile" className={`${classes.header__button} ${classes.user}`}>
-            <span className={classes.user__name}>{userName}</span>
-            <img className={classes.user__img} src={userAvatar || avatar} alt="Аватарка"></img>
+            <span className={classes.user__name}>{username}</span>
+            <img className={classes.user__img} src={image || avatar} alt="Аватарка"></img>
           </Link>
           <Link to="sign-in" className={`${classes.header__button} ${classes['log-out']}`} onClick={handleLogOutClick}>
             Log Out
